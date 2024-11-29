@@ -20,3 +20,7 @@ Graph example --
 Schrodinger example --
 
 - matplotlib
+
+If you use this repository for your research, please use the following citation provided in cite.bib:
+
+M. Tennyson, T. Jawecki, S. Dolgov and P. Singh. "Optimal Poles for Shift-and-Invert Krylov Spaces"
