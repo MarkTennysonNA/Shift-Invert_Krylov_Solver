@@ -16,3 +16,7 @@ Graph example --
 - matplotlib
 - pickle
 - networkx
+
+Schrodinger example --
+
+- matplotlib
