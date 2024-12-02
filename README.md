@@ -1,25 +1,25 @@
-# Shift-Invert_Krylov_Solver
+# A differentiable and on-the-fly adaptive shift-inverted Krylov solver
 
 This repository contains the 'Krylov' package --- a package containing the shift and invert Krylov time-propagator, where appropriate shifts are found by an optimisation based routine.
 
-**Dependencies --**
+## Dependencies
 
 Krylov package --
 
-- pytorch
-- scipy
-- numpy
+- 'pytorch'
+- 'scipy'
+- 'numpy'
 
 Graph example --
 
-- tqdm
-- matplotlib
-- pickle
-- networkx
+- 'tqdm'
+- 'matplotlib'
+- 'pickle'
+- 'networkx'
 
 Schrodinger example --
 
-- matplotlib
+- 'matplotlib'
 
 If you use this repository for your research, please use the following citation provided in cite.bib:
 
