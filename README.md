@@ -1,6 +1,6 @@
 # A differentiable and on-the-fly adaptive shift-inverted Krylov solver
 
-This repository contains the 'Krylov' package — a package containing the shift and invert Krylov time-propagator, where appropriate shifts are found by an optimisation based routine. This repository accompanies the paper 
+This repository contains the `Krylov` package — a package containing the shift and invert Krylov time-propagator, where appropriate shifts are found by an optimisation based routine. This repository accompanies the paper 
 
 M. Tennyson, T. Jawecki, S. Dolgov and P. Singh. "Optimal Poles for Shift-and-Invert Krylov Spaces"
 
@@ -10,28 +10,28 @@ Two example notebooks are provided, which correspond to the numerical examples i
 
 ### Krylov package
 
-- 'pytorch'
-- 'scipy'
-- 'numpy'
+- `pytorch`
+- `scipy`
+- `numpy`
 
 ### Graph example
 
-- 'tqdm'
-- 'matplotlib'
-- 'pickle'
-- 'networkx'
+- `tqdm`
+- `matplotlib`
+- `pickle`
+- `networkx`
 
 ### Schrodinger example
 
-- 'matplotlib'
+- `matplotlib`
 
 ## Citation
 
 If you use this repository for your research, please use the following citation provided in cite.bib:
 
-'''bibtex
-@article{Tennyson2024,
+```bibtex
+@article{TJDS2024,
 title = {Optimal Poles for Shift-and-Invert Krylov Methods},
 author = {M. Tennyson and T. Jawecki and S. Dolgov and P. Singh}
 }
-'''
+```
