@@ -29,3 +29,9 @@ Two example notebooks are provided, which correspond to the numerical examples i
 
 If you use this repository for your research, please use the following citation provided in cite.bib:
 
+'''bibtex
+@article{Tennyson2024,
+title = {Optimal Poles for Shift-and-Invert Krylov Methods},
+author = {M. Tennyson and T. Jawecki and S. Dolgov and P. Singh}
+}
+'''
