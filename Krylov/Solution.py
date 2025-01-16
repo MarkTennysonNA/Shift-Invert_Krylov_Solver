@@ -95,10 +95,10 @@ def RQ_defect(A,Vm,Hm,beta,gamma,dt,dx):
     if torch.max(torch.abs(A + torch.transpose(torch.conj(A),0,1))) < 1e-14: #Skew-Hermitian A
         kappa = Krylov.L2.IP(Vm[:,-1],A @ Vm[:,-1],dx)
         # vec = Hm[-1,-2]*(kappa + np.conj(gamma))*Vm[:,0:-1]@ym + (A-gamma*torch.eye(len(Vm[:,0])))@Vm[:,-1]
-        vec = (Krylov.L2.Norm((A - gamma*torch.eye(len(A[0,:])))@Vm[:,-1],dx)**2 - (Hm[-1,-2]*torch.abs(kappa + torch.conj(gamma))*Krylov.L2.Norm(ym,dx))**2)**(1/2)
+        vnorm = (Krylov.L2.Norm((A - gamma*torch.eye(len(A[0,:])))@Vm[:,-1],dx)**2 - (Hm[-1,-2]*torch.abs(kappa + torch.conj(gamma))*Krylov.L2.Norm(ym,1))**2)**(1/2)
     else: # General A
         vec = (A - gamma*torch.eye(len(Vm[:,0]))) @ Vm[:,-1] - Vm[:,0:-1] @ Krylov.L2.IP(Vm[:,0:-1], A@Vm[:,-1],dx)
-    vnorm = Krylov.L2.Norm(vec,dx)
+        vnorm = Krylov.L2.Norm(vec,dx)
     return (beta * Hm[-1,-2] * vnorm * integral).real
 
 def SI_defect(A,Vm,Hm,beta,gamma,dt,dx):
