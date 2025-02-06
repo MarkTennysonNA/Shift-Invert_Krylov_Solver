@@ -14,7 +14,7 @@ iter = 1
 class TerminationException(Exception):
     pass
 
-def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,None),(None,None)],rand_n = 3,rand_bounds = [[0,10],[-10,0]],x_range = [-1,1],x0 = False,loss_fn="defect",print_output=False,return_loss = False):
+def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,None),(None,None)],rand_n = 3,rand_bounds = [[0,10],[-10,0]],x_range = [-1,1],x0 = False,loss_fn="defect",print_output=False,return_loss = False, ndt = 0):
     true_N = len(v)
     global iter
     def opt(A,v,dt,dx,m,gamma0,loss_fn,print_output):
@@ -45,7 +45,7 @@ def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,Non
                 global iter
                 shifts[ind] = X[0] + 1j*X[1]
                 losses[ind] = obj_func(X)
-                print ('{0:4d}   {1: 3.6f}   {2: 3.2e}'.format(iter, (X[0] + 1j*X[1]), float(obj_func(X))))
+                print ('n = {3:5d}: iteration {0:4d} - shift = {1: 3.6f} loss = {2: 3.2e}'.format(iter, (X[0] + 1j*X[1]), float(obj_func(X)),int(ndt)), end = '\r')
                 # print(iter)
                 # print(X[0] + 1j*X[1])
                 # print(obj_func(X))
@@ -63,6 +63,7 @@ def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,Non
                 ind += 1
                 iter += 1
         try:
+            # print(torch.tensor(gamma0).shape)
             res = scipy.optimize.minimize(obj_func,
                                     gamma0,
                                     method='L-BFGS-B',
@@ -73,7 +74,7 @@ def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,Non
                                     options = options,
                                     bounds=bounds)
         except TerminationException as a:
-            print("Optimisation terminated: ",a)
+            print("Optimisation terminated: ",a, end = '\r')
         # print(res.message)
 
         shifts = shifts[0:ind]
@@ -95,6 +96,7 @@ def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,Non
     #Find initial guess of shift from random sample
     if x0 == False:
         init_gamma,randgammas,randerrors = randshift(A_downsample,v_downsample,coarse_dt,dx_downsample,m,loss_fn,rand_n,rand_bounds)
+        # print(init_gamma)
     else:
         init_gamma = x0
         randgammas = x0[0] + 1j*x0[1]
@@ -103,7 +105,9 @@ def Optimise(A,v,dx,m,true_dt,coarse_dt,coarse_N,options,tol,bounds = [(None,Non
     init_pp = pp(true_dt,coarse_dt,init_gamma)
     shifts = torch.tensor([init_pp[0] + 1j*init_pp[1]],dtype = torch.complex128)
     obj_loss = torch.tensor([loss(A,v,coarse_dt,dx_downsample,m,init_gamma,loss_fn)])
-    print ('{0:4d}   {1: 3.6f}   {2: 3.2e}'.format(0, rawshifts[0], obj_loss[0]))
+    if print_output == True:
+        print ('n = {3:5d}: iteration {0:4d} - shift = {1: 3.6f} loss = {2: 3.2e}'.format(0, rawshifts[0], obj_loss[0],int(ndt)), end = '\r')
+    # print ('{0:4d}   {1: 3.6f}   {2: 3.2e}'.format(0, rawshifts[0], obj_loss[0]))
 
     gamma = init_gamma
     #Calculate hamiltonian and initial condition for first problem
@@ -185,7 +189,7 @@ def randshift(A,v,dt,dx,m,loss_fn,rand_n,rand_bounds):
     errors = torch.tensor([1e30 if math.isnan(x) else x for x in errors])
     minerrind =  (errors == torch.min(errors)).nonzero(as_tuple=True)[0]
 
-    return [shiftsr[minerrind],shiftsi[minerrind]],shiftsr + 1j*shiftsi,errors
+    return [shiftsr[minerrind][0],shiftsi[minerrind][0]],shiftsr + 1j*shiftsi,errors
 
 def pp(dtn,dtnm1,shift):
     gamma = torch.tensor(shift)
