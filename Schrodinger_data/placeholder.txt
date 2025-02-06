@@ -1,1 +1,0 @@
-A placeholder file to instantiate the Schrodinger_data folder.

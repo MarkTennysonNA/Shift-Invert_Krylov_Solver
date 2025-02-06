@@ -152,9 +152,9 @@ def loss(A,v,dt,dx,m,gamma,loss_fn):
         X = torch.linalg.inv(A - shift*torch.eye(len(v)))
         Vm,Hm,beta = Krylov.Arnoldi.Polynomial(X,v,m,dx)
         #Rayleigh Quotient
-        # out = Krylov.Solution.RQ_defect(A,Vm,Hm,beta,shift,dt,dx)
+        out = Krylov.Solution.RQ_defect(A,Vm,Hm,beta,shift,dt,dx)
         #Shift Invert
-        out = Krylov.Solution.SI_defect(A,Vm,Hm,beta,shift,dt,dx)
+        # out = Krylov.Solution.SI_defect(A,Vm,Hm,beta,shift,dt,dx)
     elif loss_fn == "l2":
         shift = gamma[0] + 1j*gamma[1]
         Ref = Krylov.Solution.Exact(A,v,dt,torch.matrix_exp)
