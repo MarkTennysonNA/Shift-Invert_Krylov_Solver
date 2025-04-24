@@ -67,6 +67,8 @@ def Rayleigh_Quotient(A,Vm,Hm,gamma,dx):
     return Am
 
 def RQ_defect(A,Vm,Hm,beta,gamma,dt,dx):
+    if not(isinstance(gamma,torch.Tensor)):
+        gamma = torch.tensor(gamma)
     #Compute Rayleigh quotient matrix
     Am = Rayleigh_Quotient(A,Vm,Hm,gamma,dx)
     #Compute unit vectors
