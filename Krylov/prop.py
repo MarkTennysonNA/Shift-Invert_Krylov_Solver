@@ -1,7 +1,7 @@
 import Krylov
 import torch
 
-def SIK_propagator(true_A,true_v,true_dx,surrogate_A,surrogate_v,surrogate_dx,m,proptype,opttype,maxiter=1000,ftol=1e-15,rand_n = 3,opt_bounds=[(0,100),(-100,0)],x0=None,shift = None):
+def SIK_propagator(true_A,true_v,true_dx,surrogate_A,surrogate_v,surrogate_dx,m,proptype,opttype,maxiter=1000,ftol=1e-15,rand_n = 3,opt_bounds=[(0,100),(-100,0)],x0=None,shift = None,reorth_iters=1):
     #Find Optimal shift
     options = {'iprint':0,
            'maxiter':maxiter,
@@ -32,7 +32,7 @@ def SIK_propagator(true_A,true_v,true_dx,surrogate_A,surrogate_v,surrogate_dx,m,
 
     #Propagate in time
     X = torch.linalg.inv(true_A - shifts[-1]*torch.eye(len(true_v)))
-    Vm,Hm,beta = Krylov.Arnoldi.Polynomial(X,true_v,m,true_dx)
+    Vm,Hm,beta = Krylov.Arnoldi.Polynomial(X,true_v,m,true_dx,reo=reorth_iters)
     if proptype == "RQ":
         Am = Krylov.Solution.Rayleigh_Quotient(true_A,Vm,Hm,shifts[-1],true_dx)
     elif proptype == "SI":
