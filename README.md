@@ -14,6 +14,7 @@ The current implementation is limited by PyTorch’s incompatibility with sparse
 
 - `Krylov` folder containing key functions needed for shift and invert Krylov time integration; including the shift and invert Krylov time stepper, Arnoldi algorithm and optimisation routine for finding shifts.
 - `example_01_graphs.ipynb` contains the code used for the first numerical example, in section 4.1 of the article. This example is based on the dynamics of graphs. Here the matrix to be exponentiated is formed of clusters of dense connectivity given by a dense block diagonal matrix, in addition to sparse interconnectivity between clusters.
+![Demo of the project](graph_data/animation.gif)
 - `example_02_Schrodinger.ipynb` contains the code used for the second numerical example, in section 4.2 of the article. This is a linear PDE example where the matrix to be exponentiated is a discretised Schrödinger-type Hamiltonian, with softened Coulomb potential and absorbing boundaries.
 
 ## Dependencies
