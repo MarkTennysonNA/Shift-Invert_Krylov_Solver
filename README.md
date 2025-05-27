@@ -19,6 +19,7 @@ The current implementation is limited by PyTorch’s incompatibility with sparse
 - `example_02_Schrodinger.ipynb` contains the code used for the second numerical example, in section 4.2 of the article. This is a linear PDE example where the matrix to be exponentiated is a discretised Schrödinger-type Hamiltonian, with softened Coulomb potential and absorbing boundaries.
 <img src="Schrodinger_data/beta=1/animation.gif" alt="Schrodinger equation with Coulomb potential, $\beta=1$" width="500"/>
 
+You can open both of these notebooks with this link [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MarkTennysonNA/Shift-Invert_Krylov_Solver/HEAD).
 ## Dependencies
 
 ### Krylov package
