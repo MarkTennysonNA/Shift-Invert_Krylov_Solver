@@ -4,3 +4,4 @@ tqdm == 4.66.5
 matplotlib == 3.6.0
 networkx == 3.2.1
 tikzplotlib == 0.10.1
+scipy == 1.8.1
