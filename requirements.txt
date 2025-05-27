@@ -1,2 +1,6 @@
 numpy == 1.23.1
 torch == 1.13
+tqdm == 4.66.5
+matplotlib == 3.6.0
+networkx == 3.2.1
+tikzplotlib == 0.10.1
